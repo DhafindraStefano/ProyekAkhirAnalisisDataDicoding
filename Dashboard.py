@@ -10,7 +10,7 @@ st.title('Proyek Akhir Analisis Data Dhafindra')
 st.text('Selamat datang di Dashboard laporan Proyek Akhir Analisis Data Dhafindra.')
 
 st.header('Dataset')
-df = pd.read_csv('hour.csv')
+df = pd.read_csv('data\hour.csv')
 st.dataframe(data=df, width=900, height=300)
 st.caption('Bike Sharing Dataset')
 
@@ -27,7 +27,7 @@ with tab1:
     tab11, tab12, tab13 = st.tabs(['Gathering Data', 'Asessing Data', 'Cleaning Data'])
     with tab11:
         st.subheader('Gathering Data')
-        df1 = pd.read_csv('day.csv')
+        df1 = pd.read_csv('data\day.csv')
         code1 = '''
                 df1 = pd.read_csv('day.csv')
                 df1.describe()
@@ -37,7 +37,7 @@ with tab1:
 
         df2 = df
         code2 = '''
-                df2 = pd.read_csv('hour.csv')
+                df2 = pd.read_csv('data\hour.csv')
                 df2.describe()
                 '''
         st.code(code2, language='python')
