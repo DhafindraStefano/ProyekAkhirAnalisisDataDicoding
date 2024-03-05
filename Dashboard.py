@@ -52,8 +52,6 @@ with tab1:
             buffer = io.StringIO()
             df.info(buf=buffer)
             info_output = buffer.getvalue()
-
-            # Display the captured output
             st.text(info_output)   
 
         with col2:
@@ -84,18 +82,18 @@ with tab1:
         with col4: 
             code4='''
                 # Mencari outlier
+                    # Mencari outlier
                     outliers = {}
                     for column in df.columns:
-                        if df[column].dtype.kind in 'biufc':  # Check if the column is numeric
-                            Q1 = df[column].quantile(0.25)  # First quartile (Q1)
-                            Q3 = df[column].quantile(0.75)  # Third quartile (Q3)
-                            IQR = Q3 - Q1  # Interquartile range (IQR)
-                            # Define the range for non-outlier values
+                        if df[column].dtype.kind in 'biufc':  # Cek apakah kolom numerik
+                            Q1 = df[column].quantile(0.25)  # Q1
+                            Q3 = df[column].quantile(0.75)  # Q3
+                            IQR = Q3 - Q1  # IQR
+                            # Mendefinisikan range untuk nilai-nilai non-pencilan
                             non_outlier_range = (df[column] >= Q1 - 1.5*IQR) & (df[column] <= Q3 + 1.5*IQR)
-                            # Count the number of outliers and add to the dictionary
+                            # Hitung jumlah pencilan dan tambahkan ke dictionary
                             outliers[column] = len(df[column]) - non_outlier_range.sum()
 
-                    # Print the number of outliers in each column
                     for column, n_outliers in outliers.items():
                         print(f'{column}: {n_outliers} data pencilan')
             '''
@@ -104,18 +102,17 @@ with tab1:
             # Mencari outlier
             outliers = {}
             for column in df.columns:
-                if df[column].dtype.kind in 'biufc':  # Check if the column is numeric
-                    Q1 = df[column].quantile(0.25)  # First quartile (Q1)
-                    Q3 = df[column].quantile(0.75)  # Third quartile (Q3)
-                    IQR = Q3 - Q1  # Interquartile range (IQR)
-                    # Define the range for non-outlier values
+                if df[column].dtype.kind in 'biufc':  # Cek apakah kolom numerik
+                    Q1 = df[column].quantile(0.25)  # Q1
+                    Q3 = df[column].quantile(0.75)  # Q3
+                    IQR = Q3 - Q1  # IQR
+                    # Mendefinisikan range untuk nilai-nilai non-pencilan
                     non_outlier_range = (df[column] >= Q1 - 1.5*IQR) & (df[column] <= Q3 + 1.5*IQR)
-                    # Count the number of outliers and add to the dictionary
+                    # Hitung jumlah pencilan dan tambahkan ke dictionary
                     outliers[column] = len(df[column]) - non_outlier_range.sum()
 
-            # Print the number of outliers in each column
             for column, n_outliers in outliers.items():
-                st.write(f'{column}: {n_outliers} data pencilan')
+                print(f'{column}: {n_outliers} data pencilan')
 
         # Memilih kolom yang numerik saja
         numeric_columns = df.select_dtypes(include=['int64', 'float64']).columns
@@ -129,7 +126,7 @@ with tab1:
         sns.heatmap(corr, annot=True, cmap='coolwarm', fmt='.2f')
         plt.title('Correlation Heatmap')
         st.set_option('deprecation.showPyplotGlobalUse', False)
-        st.pyplot()  # Display the heatmap in Streamlit
+        st.pyplot()
 
     with tab13:
         st.subheader('Cleaning Data')
@@ -211,7 +208,7 @@ with tab2:
         sns.heatmap(corr, annot=True, cmap='coolwarm', fmt='.2f')
         plt.title('Correlation Heatmap')
         st.set_option('deprecation.showPyplotGlobalUse', False)
-        st.pyplot()  # Display the heatmap in Streamlit
+        st.pyplot()
 
     with tab22:
         # Kelompokkan data berdasarkan 'workingday' dan hitung jumlah 'cnt' dari setiap kelompok
@@ -244,10 +241,9 @@ with tab2:
 with tab3:
     st.header('Visualization & Explanatory Analysis')
     st.subheader('Pertanyaan 1')
-    # Group data by 'workingday' and calculate the sum of 'cnt'
+    # Mengelompokkan data berdasarkan 'workingday' hitung total dari 'cnt'
     cnt_by_workingday = df.groupby('workingday')['cnt'].sum()
 
-    # Create a Streamlit app
     st.text('Jumlah Penyewaan Berdasarkan Hari Kerja')
     st.bar_chart(cnt_by_workingday)
     st.caption('0 : hari libur \n 1 : hari kerja')
@@ -261,7 +257,6 @@ with tab3:
 
     monthly_cnt = df.groupby('month')['cnt'].sum()
 
-    # Create a Streamlit app
     st.text('Jumlah Total Berdasarkan Bulan')
     st.line_chart(monthly_cnt)
     st.caption('1-12 menandakan bulan')
